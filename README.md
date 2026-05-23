@@ -40,7 +40,7 @@ claude install math-modeling-paper.skill
 ```bash
 # Claude Code skills 目录
 cd ~/.claude/skills/
-git clone https://github.com/<your-username>/math-modeling-paper.git
+git clone https://github.com/Lupynow/math-modeling-paper.git
 ```
 
 ## 使用方式
