@@ -12,7 +12,7 @@
 - 2023 MCM E：Drought in the Colorado River Basin
 - 2022 MCM E：Carbon Sequestration（森林碳汇）
 
-## 通用解题框架
+## 解题示例（一种可行路径）
 
 ### Step 1：生态系统机制建模
 构建食物链/食物网模型（Lotka-Volterra 或 Holling 功能响应），或碳/水循环模型，或极端事件统计模型。E 题核心是"理解自然系统的数学规律"。

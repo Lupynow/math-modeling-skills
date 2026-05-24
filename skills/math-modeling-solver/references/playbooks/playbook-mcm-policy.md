@@ -12,7 +12,7 @@
 - 2023 MCM F：Green GDP（绿色 GDP）
 - 2022 MCM F：Global Equity and Climate Change（全球公平与气候变化）
 
-## 通用解题框架
+## 解题示例（一种可行路径）
 
 ### Step 1：利益相关者识别与画像
 列出所有相关方（政府、企业、NGO、公众、国际组织等），用 Power-Resources-Interest 三角或 Stakeholder Salience 模型做画像。这是 F 题不同于其他题型的第一步。

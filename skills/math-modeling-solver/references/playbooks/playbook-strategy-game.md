@@ -11,7 +11,7 @@
 - 2022 美赛 B 题：Water and Hydroelectric Power Sharing（水资源博弈分配）
 - 2021 美赛 B 题：Fighting Wildfires（多无人机协同策略）
 
-## 通用解题框架（6步）
+## 解题示例（一种可行路径）
 
 ### Step 1：游戏机制的数学化建模
 策略类问题首先要把"游戏规则"转化为精确的数学模型：
