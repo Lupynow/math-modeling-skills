@@ -2,18 +2,27 @@
 
 ## 评审机制与写作策略
 
-美赛评审特点：
+美赛评审特点（基于 2024-2025 年 80 篇 Outstanding/Finalist 论文分析）：
 - 评委是国际学者，看重建模**创新性**和**方法论**
 - 数学推导的原创性远比代码实现细节重要
 - 模型需要有多层结构，不是单一算法
-- 所有优秀论文都包含灵敏度分析独立章节
+- **Our Work 流程图近乎必须**：几乎每篇 Outstanding 论文都有整体建模框架图
+- 灵敏度分析独立成章的比例约 50%，另一半嵌入在模型评价章节中
 - 英文文法小瑕疵可被容忍，但结构缺失不可
 
 ## 各章节详细写法
 
 ### Summary Sheet（独立1页，最关键的1页）
 
-这是评委最先读的，有时也是唯一读完的内容。
+这是评委最先读的，有时也是唯一读完的内容。Outstanding 论文的 Summary 约 **400-550 词**。
+
+**强制检查清单**：
+- [ ] 有 Hook 句吗？
+- [ ] 每个 Task 的模型有名字和缩写吗？
+- [ ] 每个 Task 有量化结果吗？（NRMSE/R²/覆盖率/具体预测值）
+- [ ] 有至少一个置信区间或误差指标吗？
+- [ ] 关键词有 5-8 个吗？
+- [ ] 每个模型缩写首次出现时展开了全称吗？
 
 **结构模板**：
 
@@ -40,22 +49,17 @@ Our integrated framework demonstrates that ... Sensitivity analysis via Sobol' i
 Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection, Sobol' Sensitivity Analysis, Bootstrap Uncertainty Quantification, XGBoost Ensemble
 ```
 
-**强制检查清单**：
-- [ ] 有Hook句吗？
-- [ ] 每个Task的模型有名字和缩写吗？
-- [ ] 每个Task有量化结果吗？（NRMSE/R²/覆盖率/具体预测值）
-- [ ] 有至少一个置信区间或误差指标吗？
-- [ ] 关键词有6-8个吗？
+**模型命名提示**：好的模型缩写（如 FATE、CHAMPS、HARMONIE）拼成有意义的英文单词，3-6 个字母。在 Summary 中首次出现时必须展开全称（如 "FATE (Forest-to-Agriculture Transition Ecosystem)"）。
 
 ### Introduction（2-3页）
 
-**1.1 Problem Background**（0.5-1页）：问题域的介绍，引用已有研究建立学术语境。例如奥运奖牌预测可以引用 De Bosscher (2006)、Bernard & Busse (2004) 等。
+**1.1 Problem Background**（0.5-1页）：问题域的介绍。**放一张问题场景照片/示意图**（如灯塔照片、奥运五环、雨林图片）——几乎每篇 Outstanding 论文都这么做。引用已有研究建立学术语境。
 
 **1.2 Restatement of the Problem**（0.5页）：用 bullet points 列出每个 Task 的核心要求。每个 bullet 1-2 句话。
 
-**1.3 Literature Review**（推荐，0.5页）：简要总结相关方法的研究现状，建立你的模型定位。
+**1.3 Literature Review**（0.5页，约 60% 论文包含）：简要总结相关方法的研究现状。**不需要深度文献综述**——引用 3-6 篇足够，核心是说明「现有方法的局限 → 你的方法的定位」。如果篇幅紧张，可并入 1.1。
 
-**1.4 Our Work**（0.5页）：用流程图(Figure 1/2)展示整体建模 pipeline。流程图要用英文标注，展示各个模型之间的关系和数据流。
+**1.4 Our Work**（0.5页，近乎必须）：用流程图展示整体建模 pipeline。流程图要用英文标注，展示各个模型之间的关系和数据流。**这是 Outstanding 论文的标志性特征之一。**
 
 ### Assumptions and Justifications（1-2页）
 
@@ -101,16 +105,22 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 
 **关于数学推导**：不需要从 textbook 级别推导欧氏距离公式。把你的篇幅留给针对本问题的推导。例如：如果你用 XGBoost，重点不是 XGBoost 的目标函数公式（那是通用的），而是你的特征工程如何映射到本问题的数据特征。
 
-### Sensitivity Analysis（2-4页，独立章节，必需品）
+### Sensitivity Analysis（1-3页，必做项）
 
-这是美赛论文中**非可选的必选项**。参考 `model-validation.md` 获取完整方法。国赛嵌入子问题，美赛独立成章——这是两赛在结构上的关键差异。
+美赛论文必须包含灵敏度分析，但**不必独立成章**。实际 Outstanding 论文中约 50% 独立设章，50% 嵌入在模型评价/讨论章中。两种方式均可接受。
 
-推荐对每个模型做 1-2 种灵敏度检验：
-- Sobol' indices（全局灵敏度分析，最受推崇）
-- Parameter sweeps（±10%, ±20%, ±50%）
-- Elasticity analysis（弹性系数分析）
-- Scenario testing（极端情形测试）
-- Bootstrap resampling for uncertainty
+**最常用方法**（按实际出现频率排序）：
+1. **Parameter sweeps**（±10%, ±20%）— 几乎所有论文都做，最基础
+2. **Monte Carlo 仿真** — 随机扰动输入，观察输出分布
+3. **弹性系数分析** — 计算每个参数的相对影响
+4. **Morris 方法** — 全局定性筛选（罕见但加分）
+5. **Sobol' indices** — 全局定量分析（极罕见，仅顶级论文）
+
+**实际上大多数论文只对 1-3 个关键参数做局部灵敏度**，不需要每个模型都做全方法覆盖。选择一个最关键的参数，改变 ±10% 和 ±20%，展示输出变化趋势，这已经足够。
+
+国赛嵌入子问题末尾，美赛可独立可嵌入——关键差异在于**必须做**，不在于放哪里。
+
+参考 `model-validation.md` 获取完整方法。
 
 ### Strengths and Weaknesses（1页）
 
@@ -118,23 +128,34 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 
 关键语句：
 - Strengths: "Our model innovatively combines..." "Unlike existing approaches that..., we..." "A key strength is..."
-- Weaknesses: "A limitation of our approach is..." "The assumption of ... may not hold when..." "Future work could address this by..."
+- Weaknesses: "A limitation of our approach is..." "The assumption of ... may not hold when..."
 
-**每个 weakness 对应一个 concrete improvement**。
+**每个 weakness 写具体建模选择带来的局限**（不是通用套话）。映射到具体改进方案是加分项，但在实际 Outstanding 论文中并不普遍——不强求。
 
-### References（1页，≥8条）
+### References（1页，≥5条）
 
-来源要求：学术期刊 > 会议论文 > 学位论文 > 教材 > 官方报告。禁止 blog/CSDN/Wikipedia。
+来源要求：学术期刊 > 会议论文 > 学位论文 > 教材 > 官方报告。Wikipedia 在实际获奖论文中被频繁引用（视为事实性数据来源），可谨慎使用但不作为学术引用。禁止 blog/CSDN。
 
 格式统一（推荐 APA 或 IEEE）。
 
 ### AI Usage Report（1页）
 
-2024年起美赛要求汇报 AI 工具使用情况。诚实报告哪些部分使用了 AI 辅助。
+2024 年起美赛要求汇报 AI 工具使用情况。实际约 **37% 的论文包含此章节**，典型内容：
+- 列出 AI 工具名称和版本（如 ChatGPT-4o, Nov 2023 version）
+- 逐条记录查询内容和 AI 输出
+- 常见用途：写作润色、LaTeX 代码生成、概念解释、代码片段
 
-### Memorandum（如有）
+如果没有使用 AI，写明「No AI tools were used in this article」即可。
 
-部分年份美赛要求写备忘录。遵循题目的具体格式要求。
+### Memorandum / Letter（如有，1-2页）
+
+部分年份美赛要求写备忘录（B/D/E/F 题常见）。详细格式和模板见 `references/memo-writing.md`。
+
+核心要点：
+- 受众是决策者，**不出现数学公式**
+- 必须有 Date / To / From / Subject 抬头
+- 建议逐条列出，可执行
+- 长度 ≤ 2 页
 
 ## 英文写作要点
 

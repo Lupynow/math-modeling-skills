@@ -32,6 +32,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 - 需要句式参考 → 读取 `references/common-phrases.md`
 - 确定题型策略 → 读取 `references/problem-type-strategies.md`
 - 图表/代码规范 → 读取 `references/figure-and-code-guide.md`
+- 美赛 Memo/Letter → 读取 `references/memo-writing.md`
 
 ### Step 3: 逐节指导或检查
 
@@ -266,12 +267,13 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 | 语言 | 中文 | 英文 |
 | 最重视 | 摘要量化结果、模型检验 | 模型创新性、多模型融合、原创新推导 |
 | 模型命名 | 不必须，可直呼算法名 | 必须有创意名称+缩写 |
-| 灵敏度分析 | 嵌入子问题或独立章 | 必需品（独立章节，2-4页） |
-| 参考文献 | ≥6条 | ≥8条 |
-| 文献综述 | 不必须 | 推荐，放在Introduction |
-| AI 使用报告 | 2024起建议 | 独立章节（1页） |
-| 流程图 | 推荐（问题分析中放整体框架图） | 必需品（Our Work 图） |
-| 摘要页 | 在正文第一页 | 独立 Summary Sheet |
+| 灵敏度分析 | 嵌入子问题或独立章 | 必做（1-3页，独立或嵌入均可） |
+| 参考文献 | ≥6条 | ≥5条 |
+| 文献综述 | 不必须 | ~60%论文包含，可并入 Background |
+| AI 使用报告 | 2024起建议 | ~37%论文包含（1页），列出工具+查询 |
+| 流程图 | 推荐（问题分析中放整体框架图） | 近乎必须（Our Work 图，标志性特征） |
+| Memo/Letter | 不涉及 | B/D/E/F 题常见，见 memo-writing.md |
+| 摘要页 | 在正文第一页 | 独立 Summary Sheet（~400-550 词） |
 | 评审侧重 | 方法正确性、结果合理性、模型检验 | 建模思路创新性、写作表达能力 |
 
 ---
@@ -306,3 +308,4 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 - `references/common-phrases.md` — 常用学术句式（中英双语）
 - `references/problem-type-strategies.md` — A/B/C 题差异化策略
 - `references/figure-and-code-guide.md` — 图表规范与代码附录要求
+- `references/memo-writing.md` — 美赛 Memo/Letter 写作指导
