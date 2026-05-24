@@ -1,181 +1,90 @@
-# Math Modeling Paper - 数学建模竞赛论文写作 Skill
+# Math Modeling Skills
 
-> 基于 182+ 篇获奖论文（72 篇国赛一等 + 80 篇美赛 2024-2025 Outstanding + 30 篇美赛 2025）的系统分析，覆盖 CUMCM（国赛）和 MCM/ICM（美赛）全流程论文写作指导。当前版本 v1.2.0。
+数学建模竞赛全套工具链 —— 解题 + 写作。覆盖国赛(CUMCM)和美赛(MCM/ICM)。
 
-## 这个 Skill 解决什么问题
+基于 **72 篇国赛一等 + 24 篇美赛 O/F 奖论文** 的系统分析。
 
-数学建模比赛的**核心瓶颈往往不在建模能力，而在论文写作**。通过分析从三等奖到一等奖的论文差距，我们发现：
+## 包含的 Skill
 
-| 得分差异 | 关键因素 |
-|---------|---------|
-| 摘要缺量化结果 | 三等奖/优秀奖论文摘要只写方法不写结果，一等奖论文每问必有具体数值 |
-| 模型检验缺失 | 低分论文跳过灵敏度分析/误差分析；优秀论文每个子问题末尾嵌入检验（0.5-1页/子问题） |
-| 参考文献用 CSDN | 低分论文引用博客/AI 工具，优秀论文引用期刊论文和教材 |
-| 问题分析=方法罗列 | "我们将用 XX 方法"vs"因为 XX 特点，选择 YY 方法而非 ZZ" |
-| 优缺点评算法不评模型 | "线性回归简单直观"(评算法) vs "本模型将产量假设为线性，未考虑交互效应"(评本模型) |
+### `math-modeling-solver` — 解题指导
 
-## 功能覆盖
+从拿到赛题到出代码的完整建模方案。
 
-- **双赛道支持**：国赛 (CUMCM) + 美赛 (MCM/ICM)，含差异化评审标准和章节模板
-- **全流程指导**：结构规划 → 逐节写作 → 润色优化 → 格式检查
-- **题型策略**：A 题（物理/工程）、B 题（优化/博弈）、C 题（数据/ML）差异化策略
-- **摘要专项**：中英双语模板 + 3 个获奖实例 + 十大常见错误
-- **模型检验大全**：5 种检验方法 + Sobol' 全局灵敏度代码 + 嵌入 vs 独立两种组织方式
-- **图表代码规范**：流程图/数据图/伪代码绘制标准 + MATLAB/Python/C++ 代码附录要求
-- **美赛 Memo 指导**：政府/机构/公众三种受众的备忘录格式模板
-- **常用句式库**：中英双语学术句式，按章节组织
-- **格式检查**：LaTeX / Word 排版清单
+| 功能 | 说明 |
+|------|------|
+| 问题拆解 | 12 种数学本质类型自动判定 |
+| 模型匹配 | 95+ 场景决策矩阵，含首选/备选/边界条件 |
+| 算法展开 | 5 本 Cookbook（优化/ML/评价/机理/统计） |
+| 代码生成 | 22 个 Python + 7 个 MATLAB 可运行模板 |
+| 案例参考 | 11 本 Playbook（国赛 8 + 美赛 3），含完整例题走通 |
+| 美赛专项 | 模型命名策略、Memo/Letter 框架、Our Work 流程图 |
+
+### `math-modeling-paper` — 论文写作
+
+从结构规划到最终排版的全流程指导。
+
+| 功能 | 说明 |
+|------|------|
+| 结构模板 | 国赛/美赛双赛道标准结构 |
+| 摘要指导 | 中英双语模板 + 获奖实例 |
+| 模型检验 | 灵敏度分析/误差分析/鲁棒性检验方法大全 |
+| 图表规范 | 流程图/数据图/伪代码绘制标准 |
+| 学术句式 | 中英双语常用句式库 |
+| 排版检查 | LaTeX/Word 检查清单 |
+| Memo/Letter | 美赛 B-F 题 Memo 和 Letter 写作框架 |
 
 ## 安装
 
 ```bash
-# Claude Code skills 目录
 cd ~/.claude/skills/
 git clone https://github.com/Lupynow/math-modeling-paper.git
+# 重启 Claude Code 即可自动加载两个 skill
 ```
 
-安装后重启 Claude Code 即可自动加载。
-
-## 使用方式
-
-在 Claude Code 中，提及以下任一内容即可自动触发：
+## 使用流程
 
 ```
-帮我写国赛论文的摘要
-C 题数据建模怎么选模型
-论文里的流程图怎么画
-代码附录要放什么
-检查这篇美赛论文的模型检验部分
-怎么写灵敏度分析
-模型假设怎么写才不废话
-论文参考文献格式检查
-把这篇中文论文翻译润色成美赛英文
+拿到赛题
+  ↓
+启动 math-modeling-solver
+  ├─ 阶段1: 拆题分析（12种数学本质判定）
+  ├─ 阶段2: 模型匹配（95+场景决策矩阵）
+  ├─ 阶段3: 算法展开 + 代码生成（22个Python模板）
+  └─ 阶段4: 论文衔接 → [PAPER_READY]
+  ↓
+切换到 math-modeling-paper
+  ├─ 规划 → 写作 → 润色 → 检查
+  ↓
+交卷
 ```
-
-Skill 会先确认比赛类型、题型和当前阶段，然后提供针对性指导。
-
-## 搭配其他 Skill 使用
-
-此 Skill 覆盖论文写作环节，与以下 Skill 组合可形成完整的比赛工作流：
-
-### 赛前准备
-```
-nature-reader              → 精读往年优秀论文，学习结构和写法
-nature-academic-search     → 检索方法论文献（如特定算法的原始论文）
-nature-citation            → 管理 .bib 参考文献库，导出 EndNote/RIS
-```
-
-### 赛中 — 国赛中文论文
-```
-xlsx                       → 数据清洗、探索性分析、结果汇总
-math-modeling-paper        → 论文结构规划 + A/B/C题型策略 + 逐节写作指导 + 图表代码规范
-nature-figure              → 科研级图表（多面板、统一配色、期刊规范）
-docx                       → 最终排版输出、格式精修
-```
-
-### 赛中 — 美赛英文论文
-```
-xlsx                       → 数据清洗、探索性分析
-math-modeling-paper        → 英文论文结构 + 模型命名 + Summary Sheet + 句式库
-nature-polishing           → 英文润色，Nature 风格学术表达，修正中式英语
-nature-figure              → 期刊级配图，符合国际期刊视觉标准
-pdf                        → 导出最终 PDF，合并 Summary Sheet
-```
-
-### 赛后检查
-```
-math-modeling-paper        → 逐项格式检查（摘要量化/模型检验/参考文献）
-addy-code-review-and-quality → 代码质量审查（一致性、可复现性）
-superpowers:verification-before-completion → 最终验证，确保无遗漏
-```
-
-> **推荐安装**：以上搭配 Skill 可通过 `find-skills` 搜索安装。核心链 `math-modeling-paper` + `nature-polishing`（美赛必装）+ `nature-figure`（图表必装）即可覆盖 80% 的需求。
 
 ## 文件结构
 
 ```
-math-modeling-paper/
-├── SKILL.md                         # 主文件：使用流程、结构模板、分节规则、红线
-└── references/
-    ├── cumcm-guide.md               # 国赛逐节详细写法指南
-    ├── mcm-icm-guide.md             # 美赛逐节详细写法指南
-    ├── abstract-writing.md          # 摘要模板+实例+常见错误（中英双语）
-    ├── model-validation.md          # 5 种检验方法+Python 代码+检查清单
-    ├── common-phrases.md            # 中英双语学术句式库（按章节组织）
-    ├── problem-type-strategies.md   # A/B/C 题差异化策略（模型/工具/图表/易错点）
-    ├── figure-and-code-guide.md     # 图表规范（流程图/数据图/伪代码）与代码附录要求
-    └── memo-writing.md             # 美赛 Memo/Letter 写作指导（格式+模板+实例）
+math-modeling-paper/          # 仓库根目录
+├── README.md
+├── SKILL.md                  # math-modeling-paper 主文件
+├── references/
+│   ├── abstract-writing.md
+│   ├── common-phrases.md
+│   ├── cumcm-guide.md
+│   ├── figure-and-code-guide.md
+│   ├── mcm-icm-guide.md
+│   ├── memo-writing.md
+│   ├── model-validation.md
+│   └── problem-type-strategies.md
+└── math-modeling-solver/     # solver skill（子目录）
+    ├── SKILL.md
+    └── references/
+        ├── problem-decomposition.md
+        ├── model-selection-matrix.md
+        ├── paper-bridge.md
+        ├── mcm-specific-guide.md
+        ├── cookbook-*.md (5本)
+        ├── code-templates/  (29 files)
+        └── playbooks/       (11 files)
 ```
-
-### 使用优先级
-
-1. **新手上路**：SKILL.md → 确定题型后读 `problem-type-strategies.md` → 写摘要时读 `abstract-writing.md`
-2. **写到检验**：读 `model-validation.md`（注意嵌入 vs 独立章的区别）
-3. **出图出代码**：读 `figure-and-code-guide.md`
-4. **润色句式**：读 `common-phrases.md`
-
-## 设计依据
-
-此 Skill 的规则和模板来自对以下材料的系统分析：
-
-- **30 篇 2025 MCM/ICM Outstanding/Finalist 论文**
-- **72 篇 2018-2024 CUMCM 一等/优秀论文**（v1.1.0 逐篇分析：A/B/C 题全覆盖）
-- **官方评审标准**（CUMCM 格式规范 2024-2026、MCM/ICM 官方指南）
-
-核心发现：**从三等奖到一等奖，差距不在于用了多复杂的模型，而在于摘要有无量化结果、问题分析有无方法对比逻辑、每个子问题末尾有无检验。**
-
-## 更新日志
-
-### v1.2.0 (2026-05-24)
-
-基于 2024-2025 年 80 篇 MCM/ICM Outstanding/Finalist 论文（A-F 全题型覆盖）的逐篇分析：
-
-**新增**
-- `memo-writing.md` — 美赛 Memo/Letter 写作专项指导（格式模板、政府/机构/公众三种受众差异、完整实例、常见错误）
-
-**修正（mcm-icm-guide.md）**
-- 灵敏度分析：2-4页独立章节 → **1-3页，独立或嵌入均可**（实际 ~50% 嵌入在模型评价章）
-- 参考文献数量：≥8 → **≥5**（与实际论文引用数一致）
-- AI Usage Report：独立章节必备 → **约 37% 论文包含**（不强制）
-- Literature Review：推荐独立 → **~60% 论文包含，可并入 Background**
-- Our Work 流程图：「推荐」→ **「近乎必须」**（Outstanding 论文标志特征）
-- 弱点必须映射改进 → **不强求**（实际论文中很少做到）
-
-**新增模式**
-- Summary Sheet 约 400-550 词、模型缩写首次出现展全称
-- Introduction 开头放问题场景照片（近乎普遍模式）
-- Sensitivity Analysis 参数扫 sweep 为主（Morris/Sobol' 罕见）
-
-### v1.1.0 (2026-05-24)
-
-基于 2018-2024 全部获奖论文的逐篇分析，修正了与原论文实际做法不一致之处：
-
-**新增**
-- `problem-type-strategies.md` — A/B/C 三题型全流程差异化策略（模型选择、工具推荐、图表偏好、易犯错误、获奖论文特征）
-- `figure-and-code-guide.md` — 图表规范（流程图/数据图/伪代码）与代码附录要求
-
-**修正**
-- 摘要字数建议：1000 字 → **500-800 字**（与获奖论文实际一致）
-- 模型检验组织方式：强制独立成章 → **嵌入子问题末尾**（获奖论文最常见做法）+ 独立章可选
-- 参考文献数量：国赛 ≥8/美赛 ≥10 → **国赛 ≥6/美赛 ≥8**（与获奖论文引用实际一致）
-- 模型检验篇幅：2-5 页 → 0.5-1 页/子问题（嵌入时）
-
-**扩展**
-- 问题分析章节：增加多问题递进分析实例 + 整体建模流程图指导
-- 摘要章节：新增 B 题（优化）和 C 题（ML）获奖实例
-- 模型检验：新增嵌入 vs 独立两种组织方式的完整对比
-- 2026 年规则更新（源程序要求、代码规范）
-
-### v1.0.0
-
-初始发布，覆盖国赛和美赛全流程论文写作指导。
-
----
 
 ## License
 
 MIT
-
-## 贡献
-
-欢迎提交 Issue 和 PR。如果你有获奖论文的写作经验想要融入此 Skill，请分享你的模板和句式。
