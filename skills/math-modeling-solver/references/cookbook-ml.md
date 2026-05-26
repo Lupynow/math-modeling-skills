@@ -94,30 +94,100 @@ $$\text{Obj} = \sum_{i} L(y_i, \hat{y}_i) + \sum_{k} \Omega(f_k)$$
 ## 3. SVM（支持向量机）
 
 ### 适用场景
-- 小样本(<1000)、高维
-- 分类边界复杂
-- 二分类问题
+- 小样本(<1000)、高维特征
+- 分类边界复杂、非线性可分
+- 需要良好泛化能力
 
-### 关键注意事项
-- **必须标准化**（SVM 对尺度敏感）
-- RBF 核需调 C 和 gamma
-- 大样本时训练慢，考虑 LinearSVC
+### 不适用场景
+- 大样本(>10000)：训练复杂度 O(n²)~O(n³)，改用 LinearSVC 或 RF/XGBoost
+- 需要概率输出：SVM 不直接输出概率，需额外 Platt scaling
+- 特征数远大于样本数：需谨慎选择核函数，线性核通常更安全
+
+### 问题适配框架
+
+| SVM 要素 | 问题映射 | 设计要点 |
+|---------|---------|---------|
+| 核函数选择 | 数据线性可分程度 | 线性核（特征>样本数）→ RBF 核（默认首选）→ Poly 核（已知多项式关系） |
+| 惩罚参数 C | 对误分类的容忍度 | C 大 → 尽量分对（可能过拟合）；C 小 → 允许更多误分类 |
+| Gamma（RBF核） | 单个样本的影响范围 | gamma 大 → 复杂边界（过拟合风险）；gamma 小 → 更平滑 |
+| 类别权重 | 样本不均衡 | `class_weight='balanced'` 自动调整 |
+
+### 调参步骤
+
+```python
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import StandardScaler
+
+# 必须标准化（SVM 对特征尺度极其敏感）
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+param_grid = {'C': [0.1, 1, 10, 100], 'gamma': ['scale', 'auto', 0.01, 0.1], 'kernel': ['rbf', 'linear']}
+grid = GridSearchCV(SVC(), param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+grid.fit(X_scaled, y)
+```
+
+### 竞赛建议
+1. 先试 LinearSVC 作为快速 baseline
+2. 再试 RBF 核 + 粗粒度 GridSearch
+3. **论文中必须说明为什么选 SVM**（如：样本量小、需要最大间隔分类器），并与 RF/XGBoost 对比精度
 
 ---
 
 ## 4. BP 神经网络
 
 ### 适用场景
-- 大样本(>5000)
-- 高度非线性
-- 图像/序列等非表格数据
-- 传统 ML 方法效果不佳时
+- 大样本(>5000)，传统 ML 效果不佳
+- 高度非线性关系
+- 图像/序列/文本等非表格数据
 
-### 建模竞赛注意事项
-- 小数据(<500)慎用神经网络，RF/XGBoost 通常更好
-- 需要调参（层数/节点数/学习率/dropout）
-- 必须在论文中画网络结构图
-- 建议做多次运行取平均（神经网络不稳定）
+### 不适用场景
+- 小样本(<500)：RF/XGBoost 更稳定，NN 容易过拟合
+- 需要可解释性：评审要求解释每个特征的影响时用 RF/Logistic
+- 表格数据+中等样本：先试 XGBoost，大概率效果更好
+
+### 网络结构设计（竞赛实用）
+
+| 设计要素 | 建议 | 理由 |
+|---------|------|------|
+| 隐藏层数 | 1-3 层 | 竞赛不需要 100 层，1-2 层通常足够 |
+| 每层节点数 | 32-256 | 输入层→第一隐藏层可稍大（如 128），逐层递减 |
+| 激活函数 | 隐藏层 ReLU，输出层按任务 | 分类→softmax，回归→linear，二分类→sigmoid |
+| Dropout | 0.2-0.5 | 防过拟合，小数据用更大 dropout |
+| Batch Size | 32/64/128 | 2 的幂方便 GPU 优化 |
+| 学习率 | 1e-3 起步，Adam 优化器 | Adam 自适应，通常不需手动调 |
+| Early Stopping | patience=10-20 | val_loss 不再下降就停，防止过拟合 |
+
+### 最小可用模板
+
+```python
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+model = keras.Sequential([
+    keras.layers.Dense(128, activation='relu', input_shape=(X.shape[1],)),
+    keras.layers.Dropout(0.3),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dropout(0.3),
+    keras.layers.Dense(1, activation='sigmoid')  # 二分类
+])
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+early_stop = keras.callbacks.EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+history = model.fit(X_train, y_train, validation_data=(X_val, y_val),
+                    epochs=200, batch_size=32, callbacks=[early_stop], verbose=1)
+```
+
+### 竞赛注意事项
+- 多次运行取平均（权重初始化影响大），至少 5 次报告均值±标准差
+- 论文中必须画网络结构图（用 NN-SVG 或 draw.io）
+- 训练曲线必须放（epoch vs loss/accuracy），证明收敛且未过拟合
+- 不需要极致调参——评委看的是「为什么选 NN」「结果分析」，不是调参竞赛
 
 ---
 

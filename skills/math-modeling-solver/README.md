@@ -4,11 +4,12 @@
 
 ## 功能
 
-- **四阶段解题工作流**：拆题分析 → 模型匹配 → 算法展开+代码生成 → 论文衔接
-- **模型决策矩阵**：覆盖 8 种问题本质类型，每种含首选/备选模型及选择理由
-- **算法 Cookbook**：GA/PSO/SA/LP/XGBoost/RF/AHP/TOPSIS 等算法的问题适配指南
-- **可运行代码模板**：Python + MATLAB，含问题适配注释
-- **论文桥接**：输出可直接嵌入 `math-modeling-paper` 的论文片段
+- **五阶段解题工作流**：拆题分析 → 文献检索 → 模型匹配 → 算法展开+代码生成 → 论文衔接
+- **模型决策矩阵**：覆盖 12 种问题本质类型，每种含首选/备选模型及选择理由
+- **8 本算法 Cookbook**：优化/ML/评价/机理/统计/图论网络/聚类/博弈论
+- **29 个可运行代码模板**：22 Python + 7 MATLAB，含问题适配注释
+- **12 本 Playbook**：完整例题端到端走通，拆题到代码全流程
+- **论文桥接**：输出可直接嵌入 `math-modeling-paper` 的论文草稿片段
 
 ## 安装
 
@@ -44,15 +45,19 @@ math-modeling-solver/
     ├── problem-decomposition.md
     ├── model-selection-matrix.md
     ├── paper-bridge.md
-    ├── cookbook-optimization.md
-    ├── cookbook-ml.md
-    ├── cookbook-evaluation.md
-    ├── cookbook-mechanistic.md    (P1)
-    ├── cookbook-statistical.md    (P1)
+    ├── mcm-specific-guide.md
+    ├── cookbook-optimization.md     (优化)
+    ├── cookbook-ml.md               (机器学习)
+    ├── cookbook-evaluation.md       (评价)
+    ├── cookbook-mechanistic.md      (机理)
+    ├── cookbook-statistical.md      (统计)
+    ├── cookbook-network.md          (图论/网络)
+    ├── cookbook-clustering.md       (聚类)
+    ├── cookbook-game-theory.md      (博弈论)
     ├── code-templates/
-    │   ├── python/
-    │   └── matlab/
-    └── playbooks/                 (P1/P2)
+    │   ├── python/   (22 个模板)
+    │   └── matlab/   (7 个模板)
+    └── playbooks/     (12 本端到端例题)
 ```
 
 ## License

@@ -140,7 +140,7 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 
 ### AI Usage Report（1页）
 
-2024 年起美赛要求汇报 AI 工具使用情况。实际约 **37% 的论文包含此章节**，典型内容：
+2024 年起美赛要求汇报 AI 工具使用情况。首届约 37% 的论文包含此章节，2025 年已接近普遍包含（接近 100%）。典型内容：
 - 列出 AI 工具名称和版本（如 ChatGPT-4o, Nov 2023 version）
 - 逐条记录查询内容和 AI 输出
 - 常见用途：写作润色、LaTeX 代码生成、概念解释、代码片段
@@ -149,7 +149,7 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 
 ### Memorandum / Letter（如有，1-2页）
 
-部分年份美赛要求写备忘录（B/D/E/F 题常见）。详细格式和模板见 `references/memo-writing.md`。
+部分年份美赛要求写备忘录（B/D/E/F 题常见）。详细格式和模板见 `memo-writing.md`。
 
 核心要点：
 - 受众是决策者，**不出现数学公式**
@@ -179,4 +179,4 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 - 在多面板图中使用 (a), (b), (c) 子图标注
 
 ### 常见短语
-参考 `references/common-phrases.md` 获取更多句式。
+参考 `common-phrases.md` 获取更多句式。

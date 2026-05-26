@@ -66,10 +66,32 @@ $$\max_{p} \quad \alpha \cdot D(p) - (1-\alpha) \cdot R(p)$$
 其中 $D(p)$ 为保险需求函数，$R(p)$ 为风险敞口，$\alpha$ 为社会偏好权重。
 
 ### 代码思路
-1. 用 ARIMA 预测极端天气频率
-2. Monte Carlo 模拟损失分布（10,000 次）
-3. 对每个价格档位计算需求-风险均衡点
-4. 绘制 Pareto 前沿，选最优定价
+1. **ARIMA 极端天气频率预测**：用 `statsmodels.tsa.arima.model.ARIMA` 拟合历史频率数据，预测未来 10 年各等级极端事件的年发生次数
+2. **Monte Carlo 损失分布模拟**（10,000 次）：
+   ```
+   Algorithm: Monte Carlo Loss Simulation
+   Input: 极端事件频率分布, 损失程度分布(对数正态), 地理暴露数据
+   Output: 年总损失的经验分布
+   Steps:
+   1. for trial = 1 to 10000:
+   2.     对每个区域，从频率分布抽样年事件次数 n
+   3.     for each event:
+   4.         从对数正态分布抽样单次损失 severity ~ LogNormal(mu, sigma)
+   5.         累积：total_loss[region] += severity * exposure_factor
+   6.     汇总全国年总损失 = sum(total_loss)
+   7. 计算 VaR(95%) 和 CVaR(95%) 作为尾部风险指标
+   8. return 损失分布, VaR, CVaR
+   ```
+3. **Pareto 前沿求解**：对每个保费档位 p ∈ [100, 500]，计算需求 D(p) 和风险 R(p)，绘制 D(p)-R(p) 散点图，标记 Pareto 前沿点
+4. **可迁移性检验**：将模型参数从 Florida 替换为 California 后重新运行全部模拟，对比两次结果的一致性
+
+### 关键参数获取
+| 参数 | 典型值 | 来源 |
+|------|--------|------|
+| 极端事件年发生率 | 0.5-3.0 次/年 | NOAA 历史数据拟合 |
+| 损失严重度中位数 | $50K-$500K | FEMA 保险理赔数据库 |
+| 风险载荷因子 λ | 0.1-0.3 | Lane's financial pricing model |
+| 需求价格弹性 | -0.3 到 -0.8 | 保险经济学文献 (Einav et al., 2010) |
 
 ### Memo/Letter 要点
 - 写给：FEMA（联邦紧急事务管理局）或保险公司 CEO

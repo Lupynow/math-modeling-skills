@@ -37,6 +37,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 根据当前阶段可能需要的专项指导：
 - 摘要相关 → 读取 `references/abstract-writing.md`
 - 模型检验相关 → 读取 `references/model-validation.md`
+- 文献查阅/综述写作 → 读取 `references/literature-review.md`
 - 需要句式参考 → 读取 `references/common-phrases.md`
 - 确定题型策略 → 读取 `references/problem-type-strategies.md`
 - 图表/代码规范 → 读取 `references/figure-and-code-guide.md`
@@ -242,7 +243,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 
 **红线 2：正文中引用了就要列出，列出了就要在正文中出现。**
 
-**数量要求**：国赛 ≥6 条，美赛 ≥8 条。能引用英文期刊论文是加分项，但不强制。
+**数量要求**：国赛 ≥6 条，美赛 ≥5 条。能引用英文期刊论文是加分项，但不强制。推荐美赛引用 8 条以上以体现文献调研深度。
 
 **正确来源**：
 - 期刊论文（中文：知网核心期刊；英文：IEEE/Elsevier/Springer 等）
@@ -313,6 +314,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 - `references/mcm-icm-guide.md` — 美赛各章节详细写法
 - `references/abstract-writing.md` — 摘要模板和句式（中英双语）
 - `references/model-validation.md` — 模型检验方法大全
+- `references/literature-review.md` — 文献检索策略、综述写作、引用格式、参数溯源
 - `references/common-phrases.md` — 常用学术句式（中英双语）
 - `references/problem-type-strategies.md` — A/B/C 题差异化策略
 - `references/figure-and-code-guide.md` — 图表规范与代码附录要求
