@@ -34,10 +34,12 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 - 国赛 → 读取 `references/cumcm-guide.md`
 - 美赛 → 读取 `references/mcm-icm-guide.md`
 
-根据当前阶段可能需要的专项指导：
+必读：
+- 文献查阅/综述写作 → 读取 `references/literature-review.md`（模型选择理由、参数溯源、引用格式必须有文献支撑）
+
+根据当前阶段按需加载：
 - 摘要相关 → 读取 `references/abstract-writing.md`
 - 模型检验相关 → 读取 `references/model-validation.md`
-- 文献查阅/综述写作 → 读取 `references/literature-review.md`
 - 需要句式参考 → 读取 `references/common-phrases.md`
 - 确定题型策略 → 读取 `references/problem-type-strategies.md`
 - 图表/代码规范 → 读取 `references/figure-and-code-guide.md`
@@ -137,7 +139,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 正确的写法遵循「为什么」逻辑：
 - 这个问题的数学本质是什么？（预测/评价/分类/优化/机理？）
 - 输入变量和输出结果分别是什么？
-- 为什么选这个模型而不是别的？（**必须**对比至少一种替代方案）
+- 为什么选这个模型而不是别的？（**必须**对比至少一种替代方案，并引用文献证据支撑选择理由）
 - 各问题之间的递进关系是什么？
 - 有什么难点？如何应对？
 
@@ -278,7 +280,7 @@ description: 数学建模竞赛论文写作全流程指导。覆盖国赛(CUMCM)
 | 模型命名 | 不必须，可直呼算法名 | 必须有创意名称+缩写 |
 | 灵敏度分析 | 嵌入子问题或独立章 | 必做（1-3页，独立或嵌入均可） |
 | 参考文献 | ≥6条 | ≥5条 |
-| 文献综述 | 不必须 | ~60%论文包含，可并入 Background |
+| 文献综述 | 必须（可并入问题分析） | 近乎必须（Introduction 中必含 Literature Review）；模型选择理由必须有文献支撑 |
 | AI 使用报告 | 2024起建议 | ~37%论文包含（1页），列出工具+查询 |
 | 流程图 | 推荐（问题分析中放整体框架图） | 近乎必须（Our Work 图，标志性特征） |
 | Memo/Letter | 不涉及 | B/D/E/F 题常见，见 memo-writing.md |
