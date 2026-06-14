@@ -180,3 +180,144 @@ Keywords: Olympic Medal Prediction, Tobit Model, Bayesian Change-Point Detection
 
 ### 常见短语
 参考 `common-phrases.md` 获取更多句式。
+
+---
+
+## 英文写作润色策略（nature-polishing 方法论整合）
+
+> 以下内容来自学术写作策略，专门针对中国学生写美赛英文论文的常见问题。
+
+### 中→英三阶段转换
+
+写英文论文时的最大误区是「逐句翻译中文草稿」。正确的三阶段流程：
+
+```
+阶段1：提取核心命题
+  从中文草稿中提取每段的逻辑主张（而非逐字翻译）
+  例：中文「我们先用熵权法算了权重然后丢进TOPSIS里面算分」
+     → 命题：Weights were derived via entropy method, then TOPSIS aggregated scores.
+
+阶段2：重建逻辑连接
+  英文写作要求显式的逻辑连接词。中文可以靠语序暗示，英文不行。
+  补全每段中的：contrast / cause / implication / limitation
+
+阶段3：校准术语、动词强度、hedging
+  见下方各小节。
+```
+
+### 动词强度校准
+
+英文论文的动词选择直接决定主张的可靠性。用错了动词=给评审提供了攻击面。
+
+| 强度 | 动词 | 使用条件 |
+|------|------|---------|
+| **强** | show, demonstrate, prove, establish | 有统计显著性（p<0.01）+ 多数据集验证 |
+| **中** | indicate, reveal, find, observe | 有实验数据支撑但缺独立验证 |
+| **弱** | suggest, imply, appear to, may | 趋势存在但未达显著性或样本小 |
+| **最弱** | could, might, potentially | 假设或外推，不是直接观察 |
+
+```
+❌ Our model proves that GDP is the dominant factor.
+   （除非有严格的因果推断，否则 prove 是 overclaim）
+
+✅ The Sobol' analysis indicates that GDP (elasticity 0.42) is the dominant driver
+   among the six factors tested.
+   （indicate + 具体数值 + 限定范围 "among the six factors tested"）
+```
+
+铁律：**动词强度不能超过证据强度**。如果只有一张图和一个数据集，不要用 `demonstrate`；用 `indicate` 或 `suggest`。
+
+### Results vs Discussion 严格分离
+
+这是中国学生最常混淆的。数模论文中，建模求解章节里经常把「观察到什么」和「这意味着什么」混在一起写。
+
+| | Results（结果描述） | Discussion（结果解释） |
+|---|---|---|
+| **回答什么问题** | What happened? | What does it mean? |
+| **时态** | 过去时 | 现在时 |
+| **典型动词** | was detected, increased, showed, enabled, achieved | may reflect, suggests that, could indicate, is likely due to, may facilitate |
+| **内容** | 数据+观察+统计 | 解释原因+联系文献+推论+局限 |
+| **位置** | 建模求解章节各子问题末尾 | 模型评价与改进章 / 灵敏度分析章 |
+
+```
+Results 写法（过去时，报告观察）：
+  "When λ increased from 0.01 to 0.1, the F1 score rose from 0.87 to 0.92 (p<0.01).
+   Beyond λ=1.0, F1 declined to 0.85."
+
+Discussion 写法（现在时，解释含义）：
+  "The decline in F1 beyond λ=1.0 suggests that excessive regularization suppresses
+   informative features. This is consistent with the bias-variance tradeoff [3] and
+   indicates that λ ∈ [0.05, 0.5] provides a robust operating range for this problem."
+```
+
+如果在建模求解章节中必须简要解释结果，控制在 1-2 句，不要展开成一整段 Discussion。
+
+### 句长控制
+
+| 规则 | 数值 |
+|------|------|
+| 一句话一个主张 | 如果一句包含两个以上的主张→拆成两句 |
+| 最优句长 | 15-25 词 |
+| 上限 | 30 词/句（超过就拆） |
+| 下限 | 不低于 8 词（除非是标题、标注、或技术术语） |
+| 段落末句检查 | 每段最后一句往往是全段最长最弱的一句，显式检查它 |
+
+```
+❌ (38 words, two claims mashed together)
+   Our model combines an LSTM framework for temporal pattern recognition with
+   a graph neural network that encodes player interaction dynamics, achieving
+   robust predictions across diverse match conditions while maintaining interpretability
+   through attention weights.
+
+✅ (split into claim 1 + claim 2)
+   Our model combines an LSTM framework for temporal pattern recognition with a
+   graph neural network encoding player interaction dynamics (25 words).
+   Attention weights provide interpretability: the model achieves robust predictions
+   across diverse match conditions while exposing which features drive each forecast
+   (22 words).
+```
+
+### 沙漏结构
+
+优秀的美赛论文在结构上呈现 **沙漏形**：
+
+```
+Introduction: 宽 → 窄
+  从问题大背景 → 现有方法的局限 → 本文填补的具体缺口
+
+Model Building（中间窄腰）:
+  聚焦于你的模型：推导→求解→验证
+
+Discussion / Conclusion: 窄 → 宽
+  从你的具体发现 → 对领域的启示 → 局限和未来工作方向
+```
+
+检查方法：读你的 Introduction 最后一段和 Conclusion 第一段——它们应该形成对称的「收窄」和「放宽」，而不是重复同样的内容。
+
+### 段落规则
+
+- **一段一个控制思想**。如果写到一半开始讲新想法→另起一段。
+- **段首句 = 段落主张**。读者扫读时只看每段第一句就应该能理解论文的逻辑流。
+- **支撑句类型**：数据、对比、解释、推论、文献、局限——选 1-2 种，不要在一段里塞全部类型。
+- **段落衔接**：避免连续两段用同样的开头（如连续两段用 "We then..." 或 "This suggests..."）。
+
+```
+段落结构示意：
+
+[段首句：控制思想]
+  → [支撑数据/对比]
+  → [解释/推论]
+  → [回到控制思想或过渡到下一段]
+```
+
+### 美赛英文润色快速检查清单
+
+论文英文稿完成后，逐项检查：
+
+- [ ] 每句话 ≤ 30 词？
+- [ ] 动词强度与证据强度匹配？（有没有不该用 demonstrate 的地方用了？）
+- [ ] Results 里有没有混入 Discussion 句式（suggests that / may reflect）？
+- [ ] Discussion 里有没有重复 Results 的数据描述？
+- [ ] Introduction 是由宽收窄的吗？Conclusion 是由窄放宽的吗？
+- [ ] 每段第一句话能独立传达段落主旨吗？
+- [ ] 有没有连续两句用同样的开头词？

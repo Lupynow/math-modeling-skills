@@ -4,6 +4,95 @@
 
 ---
 
+## 零、Figure Contract：做图前先定论证逻辑
+
+> 每张图在画之前，必须明确它要论证什么。先定逻辑，再写代码，最后调样式。
+
+### 0.1 四步 Figure Contract
+
+在生成任何图表代码之前，完成以下四步：
+
+**Step 1 — 核心结论**：一句话写出这张图要证明的结论。
+
+```
+不是「展示不同参数下的模型性能」
+而是「当 λ 从 0.01 增至 0.1 时 F1 提升 5.7%，继续增大至 1.0 时 F1 反而下降 6.2%，
+  证明过强的正则化损害了模型拟合能力」
+```
+
+**Step 2 — 证据链**：列出每个 panel（子图）对结论贡献了什么独特证据。如果一个 panel 不贡献独立证据→删除，不要为了填满画布而加图。
+
+**Step 3 — 图原型分类**：判断你的图属于哪种类型，这决定布局策略：
+
+| 原型 | 特征 | 典型布局 |
+|------|------|---------|
+| **定量网格** (quantitative grid) | 多张同类型数据图对比（如不同参数下的收敛曲线） | 等大小网格，共享坐标轴 |
+| **示意主导** (schematic-led composite) | 一张核心示意图 + 几张数据子图 | 大幅示意图占 40-60% 画布 |
+| **数据+图例混合** (image + quant) | 实际数据图旁边配解释性标注 | 左右或上下分栏 |
+| **非对称混合** (asymmetric mixed-modality) | 不同类型面板组合（如图片+柱状图+表格） | 自定义 GridSpec 布局 |
+
+**Step 4 — 审稿风险检查**：
+- 这张图在黑白打印下还能看出结论吗？
+- 如果只看图不读正文，结论还能成立吗？
+- 有没有 colorblind-unfriendly 的红绿配色？
+
+### 0.2 Python 发表级默认配置
+
+所有用 Python 生成的数模图表，默认使用以下 rcParams：
+
+```python
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+mpl.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
+    "svg.fonttype": "none",       # SVG 中文字可编辑
+    "pdf.fonttype": 42,           # PDF 中文字可编辑（TrueType）
+    "font.size": 7,               # 论文图标准字号，大屏演示时才用 15-24
+    "axes.spines.right": False,
+    "axes.spines.top": False,
+    "axes.linewidth": 0.8,
+    "legend.frameon": False,
+})
+
+def save_pub(fig, filename, dpi=600):
+    """一次调用，三格式输出"""
+    fig.savefig(f"{filename}.svg", bbox_inches="tight")
+    fig.savefig(f"{filename}.pdf", bbox_inches="tight")
+    fig.savefig(f"{filename}.tiff", dpi=dpi, bbox_inches="tight")
+```
+
+### 0.3 调色板策略
+
+三条原则（优先级从高到低）：
+
+1. **统一方法族 > 最大色相分离**。同一图中的多条曲线/柱状图用同一色系的不同深浅，而非跳跃式色相。
+
+2. **灰度打印安全**。论文常被黑白打印评审。用不同线型（实线/虚线/点线）辅助区分，确保去色后仍可分辨。
+
+3. **保留绿/红仅用于方向信号**。绿色=增益/改进，红色=损失/下降。中性数据用蓝/灰/橙。
+
+低饱和度配色示例（适合密集多面板图）：
+```python
+# NMI pastel family — 低饱和度，多面板不刺眼
+colors = ['#7EA8C4', '#C4A47E', '#A4C47E', '#C47EA8', '#7EC4A8', '#A87EC4']
+```
+
+### 0.4 导出策略
+
+| 格式 | 用途 | 特点 |
+|------|------|------|
+| **SVG** | Word/PPT 插入、后续编辑 | 矢量，可缩放，文字可编辑 |
+| **PDF** | LaTeX 插入 | 矢量，字体可嵌入 |
+| **TIFF (600dpi)** | 期刊投稿、最终存档 | 位图，高分辨率，无损压缩 |
+
+规则：**始终 SVG + PDF + TIFF 三格式同时输出**。从 Word 插图到 LaTeX 排版到最终提交，三个场景三种格式，一次生成不用返工。
+
+> 关于图表审美有一条铁律：**图服务于科学逻辑，不服务于"好看"**。调色、布局、字体大小都是为了让结论更清晰、更容易被评审验证，而不是为了视觉冲击力。
+
+---
+
 ## 一、流程图
 
 ### 何时需要流程图
